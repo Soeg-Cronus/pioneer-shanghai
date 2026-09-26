@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pioneer Shanghai | Tour, Travel & Business Delegation</title>
+  <style>
+    :root {
+      --card-bg: rgba(10, 10, 10, 0.80);
+      --accent-white: #ffffff;
+      --text-main: #ffffff;
+      --text-muted: #a1a1aa;
+      --border-color: rgba(255, 255, 255, 0.15);
+      --font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    /* Global Shanghai Night Skyline Background */
+    body { 
+      background: linear-gradient(rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.88)), 
+                  url('images.jpg') center/cover fixed; 
+      color: var(--text-main); 
+      font-family: var(--font-family); 
+      line-height: 1.6; 
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* Header Nav */
+    header { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      padding: 1.2rem 6%; 
+      background: rgba(0, 0, 0, 0.85); 
+      backdrop-filter: blur(12px);
+      position: sticky; 
+      top: 0; 
+      z-index: 100; 
+      border-bottom: 1px solid var(--border-color); 
+    }
+    .logo { font-size: 1.2rem; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--text-main); }
+    .logo span { font-weight: 300; opacity: 0.6; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+    .nav-links a { color: var(--text-muted); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent-white); }
+    
+    .btn-primary { 
+      background: var(--accent-white); 
+      color: #000000; 
+      padding: 0.75rem 1.5rem; 
+      font-weight: 700; 
+      text-transform: uppercase; 
+      font-size: 0.8rem; 
+      letter-spacing: 1.5px; 
+      border: 1px solid var(--accent-white); 
+      cursor: pointer; 
+      transition: all 0.2s ease; 
+      display: inline-block; 
+    }
+    .btn-primary:hover { background: transparent; color: var(--accent-white); }
+
+    /* Hero Section */
+    .hero { 
+      min-height: 75vh; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center; 
+      align-items: center; 
+      text-align: center; 
+      padding: 0 1.5rem; 
+    }
+    .hero h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 800; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 1rem; color: var(--text-main); text-shadow: 0 4px 12px rgba(0,0,0,0.9); }
+    .hero p { color: #d4d4d8; max-width: 680px; font-size: 1.05rem; margin-bottom: 2rem; text-shadow: 0 2px 8px rgba(0,0,0,0.9); }
+
+    /* Client Banner */
+    .client-banner { 
+      padding: 2rem 6%; 
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color); 
+      text-align: center; 
+      background: rgba(0, 0, 0, 0.65); 
+      backdrop-filter: blur(8px);
+    }
+    .client-banner span { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); display: block; margin-bottom: 1rem; }
+    .client-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 2.5rem; opacity: 0.85; font-size: 0.95rem; font-weight: 600; letter-spacing: 1px; }
+
+    /* General Section */
+    .section { padding: 5rem 6%; text-align: center; border-bottom: 1px solid var(--border-color); }
+    .section-title { font-size: 1.8rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 0.5rem; color: var(--text-main); text-shadow: 0 2px 8px rgba(0,0,0,0.8); }
+    .section-subtitle { color: #d4d4d8; font-size: 0.95rem; margin-bottom: 3rem; text-shadow: 0 2px 6px rgba(0,0,0,0.8); }
+    
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem; }
+    
+    /* Standard Semi-Transparent Glass Cards */
+    .card { 
+      background: var(--card-bg); 
+      backdrop-filter: blur(10px);
+      padding: 2.2rem 1.6rem; 
+      border: 1px solid var(--border-color); 
+      text-align: left; 
+      transition: border-color 0.3s, transform 0.2s, background 0.3s; 
+    }
+    .card:hover { border-color: var(--accent-white); background: rgba(20, 20, 20, 0.9); transform: translateY(-3px); }
+    .card h3 { font-size: 1.15rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.75rem; color: var(--text-main); }
+    .card p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.2rem; }
+
+    /* --- CURATED DESTINATION CARDS WITH IMAGE BACKGROUNDS & OVERLAYS --- */
+    .destination-card {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      padding: 2.5rem 1.8rem;
+      border: 1px solid var(--border-color);
+      text-align: left;
+      overflow: hidden;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+
+    /* Dark gradient overlay for readability */
+    .destination-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.88) 100%);
+      transition: background 0.3s ease;
+      z-index: 1;
+    }
+
+    .destination-card:hover::before {
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.78) 100%);
+    }
+
+    .destination-card:hover {
+      border-color: var(--accent-white);
+      transform: translateY(-4px);
+    }
+
+    .destination-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .destination-content h3 {
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+      color: #ffffff;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.9);
+    }
+
+    .destination-content p {
+      color: #e4e4e7;
+      font-size: 0.9rem;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+      margin: 0;
+    }
+
+    .badge { display: inline-block; padding: 0.2rem 0.6rem; border: 1px solid var(--border-color); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 1rem; }
+
+    /* Footer */
+    footer { padding: 4rem 6% 2rem; background: rgba(0, 0, 0, 0.92); backdrop-filter: blur(12px); text-align: left; color: var(--text-muted); font-size: 0.85rem; }
+    .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2.5rem; margin-bottom: 3rem; }
+    .footer-col h4 { color: var(--text-main); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 1rem; font-size: 0.9rem; }
+    .footer-col p, .footer-col li { margin-bottom: 0.5rem; list-style: none; }
+    .footer-bottom { border-top: 1px solid var(--border-color); padding-top: 2rem; text-align: center; font-size: 0.8rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">PIONEER <span>SHANGHAI</span></div>
+    <ul class="nav-links">
+      <li><a href="#divisions">Divisions</a></li>
+      <li><a href="#destinations">Destinations</a></li>
+      <li><a href="#fleet">Fleet</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="https://wa.me/6281231960402" class="btn-primary" target="_blank">Contact Us</a>
+  </header>
+
+  <section class="hero">
+    <h1>Bridge Between China & Indonesia</h1>
+    <p>Established in 2017 in Guangzhou and expanded to Shanghai in 2022. Premier tour, G2G/B2B project support, Halal-friendly itineraries, and luxury transport for national delegations.</p>
+    <a href="#destinations" class="btn-primary">Explore Travel Services</a>
+  </section>
+
+  <div class="client-banner">
+    <span>Trusted By Star Clients & Delegations</span>
+    <div class="client-logos">
+      <span>BPJPH HALAL INDONESIA</span>
+      <span>INDONESIA AIR FORCE MILITARY</span>
+    </div>
+  </div>
+
+  <section class="section" id="divisions">
+    <h2 class="section-title">Core Divisions</h2>
+    <p class="section-subtitle">Comprehensive business & tourism scope across China</p>
+    <div class="grid">
+      <div class="card">
+        <span class="badge">Travel & Leisure</span>
+        <h3>Tour & Travel</h3>
+        <p>Tailored Shanghai itineraries, nearby luxury water towns, and customized Halal dining & prayer arrangements.</p>
+      </div>
+      <div class="card">
+        <span class="badge">Business & G2G</span>
+        <h3>Pioneer Shanghai Project</h3>
+        <p>Specialized G2G and B2B project collaboration, factory visits, and government/corporate delegation assistance.</p>
+      </div>
+      <div class="card">
+        <span class="badge">Language Support</span>
+        <h3>Translation Services</h3>
+        <p>Professional translation services dedicated to corporate meetings, factory audits, and business negotiation.</p>
+      </div>
+      <div class="card">
+        <span class="badge">Trade & Logistics</span>
+        <h3>Export & Import</h3>
+        <p>Comprehensive trade assistance bridging business partnerships and logistics between China and Indonesia.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURATED DESTINATIONS WITH PICTURE BACKGROUNDS -->
+  <section class="section" id="destinations">
+    <h2 class="section-title">Curated Destinations</h2>
+    <p class="section-subtitle">Selected iconic landmarks, luxury experiences, and nearby ancient cities</p>
+    <div class="grid">
+
+      <!-- Destination 1: Replace URL inside url('...') with your preferred photo -->
+      <div class="destination-card" style="background-image: url('https://images.unsplash.com/photo-1548013146-72479768bada?auto=format&fit=crop&w=800&q=80');">
+        <div class="destination-content">
+          <h3>The Bund & Skyscrapers</h3>
+          <p>Experience Shanghai's British Concession heritage alongside Lujiazui skyscraper clusters like Shanghai Tower.</p>
+        </div>
+      </div>
+
+      <!-- Destination 2: Replace URL inside url('...') with your preferred photo -->
+      <div class="destination-card" style="background-image: url('https://images.unsplash.com/photo-1508804185872-d7badad00f7d?auto=format&fit=crop&w=800&q=80');">
+        <div class="destination-content">
+          <h3>Yu Garden & Halal Services</h3>
+          <p>Ming Dynasty classical architecture with direct access to local tea ceremonies and Fuyou Road Mosque (400m).</p>
+        </div>
+      </div>
+
+      <!-- Destination 3: Replace URL inside url('...') with your preferred photo -->
+      <div class="destination-card" style="background-image: url('https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=800&q=80');">
+        <div class="destination-content">
+          <h3>Modern Luxury & Culture</h3>
+          <p>Exclusive trips to Louis Vuitton Ship, Asia's largest Starbucks Reserve Roastery, and historic French Concession streets.</p>
+        </div>
+      </div>
+
+      <!-- Destination 4: Replace URL inside url('...') with your preferred photo -->
+      <div class="destination-card" style="background-image: url('https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?auto=format&fit=crop&w=800&q=80');">
+        <div class="destination-content">
+          <h3>Nearby Historic Cities</h3>
+          <p>Day tours to Suzhou Classical Gardens, 1300-year-old Wuzhen Water Town, and Hangzhou West Lake.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="fleet">
+    <h2 class="section-title">Private Transport & Fleet</h2>
+    <p class="section-subtitle">Chauffeur services with rates significantly below standard market prices</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Luxury Minivans</h3>
+        <p>6-Seater GM Buick & 6-Seater Mercedes-Benz V260 for executive comfort and private family tours.</p>
+      </div>
+      <div class="card">
+        <h3>Executive Vans</h3>
+        <p>9-Seater Mercedes-Benz vans suitable for medium delegation groups and high-end airport shuttles.</p>
+      </div>
+      <div class="card">
+        <h3>Delegation Coasters</h3>
+        <p>15, 17, and 23-Seater Coasters designed for corporate delegations, factory tours, and group travel.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="logo" style="margin-bottom: 1rem;">PIONEER <span>SHANGHAI</span></div>
+        <p>Supporting and protecting all tourists, foreigners, and national delegations visiting China.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Shanghai Office</h4>
+        <p>Xijiaomenghua No. 47, Qingpu District</p>
+        <p>Zhengli Road No. 99, Yangpu District</p>
+        <p>Zhujing People Road No. 360, Jinshan District</p>
+      </div>
+      <div class="footer-col">
+        <h4>Reservations</h4>
+        <p><strong>WhatsApp:</strong> +62 812-3196-0402</p>
+        <p><strong>Instagram:</strong> @pioneer.shanghai</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Pioneer Shanghai Tour & Travel. All rights reserved.</p>
+    </div>
+  </footer>
+
+</body>
+</html>
